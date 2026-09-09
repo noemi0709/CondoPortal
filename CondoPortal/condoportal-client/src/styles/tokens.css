@@ -1,39 +1,72 @@
-/* CondoPortal · Design tokens — módulo de Pagos y base global*/
+/* CondoPortal · Design tokens — módulo de Pagos y base global.
+
+   Tema café / dorado con dos modos:
+   - modo claro y oscuro  */
 
 :root {
-   /* Superficies */
-   --bg: linear-gradient(135deg, #2c1810, #3d2818);
-   --surface: rgba(160, 115, 79, 0.15);
-   --surface-hover: rgba(160, 115, 79, 0.25);
-   --muted: rgba(160, 115, 79, 0.3);
+  /* Superficies (modo oscuro) */
+  --bg: linear-gradient(135deg, #2c1810, #3d2818);
+  --surface: rgba(160, 115, 79, 0.15);
+  --surface-hover: rgba(160, 115, 79, 0.25);
+  --muted: rgba(160, 115, 79, 0.3);
 
-   /* Texto */
-   --text: #f4f1ec;
-   --sub: rgba(244, 241, 236, 0.75);
+  /* Texto */
+  --text: #f4f1ec;
+  --sub: rgba(244, 241, 236, 0.75);
 
-   /* Marca */
-   --primary: linear-gradient(135deg, #a0734f, #c2956f);
-   --gradient-text: linear-gradient(135deg, #a0734f, #c2956f);
-   --primary-solid: #a0734f;
-   /* respaldo sólido para bordes/fondos planos */
+  /* Marca */
+  --primary: linear-gradient(135deg, #a0734f, #c2956f);
+  --gradient-text: linear-gradient(135deg, #a0734f, #c2956f);
+  --primary-solid: #a0734f;
+  --shadow: 0 8px 32px rgba(44, 24, 16, 0.4);
 
-   /* Sombra */
-   --shadow: 0 8px 32px rgba(44, 24, 16, 0.4);
+  /* Encabezado de tabla — igual en ambos modos (café + texto claro).
+     Gradiente ligeramente más profundo que --primary para alcanzar
+     contraste AA con texto blanco. */
+  --th-bg: linear-gradient(135deg, #7f5230, #92663d);
+  --th-fg: #ffffff;
 
-   /* Espaciado base 4 / 8 px */
-   --space-1: 0.25rem;
-   --space-2: 0.5rem;
-   --space-3: 0.75rem;
-   --space-4: 1rem;
-   --space-6: 1.5rem;
-   --space-8: 2rem;
+  /* Espaciado base 4 / 8 px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
 
-   /* Badges de estatus — tabla de historial de movimientos
-     (contraste >= 4.5:1, WCAG AA, según el reporte oficial) */
-   --badge-ok-bg: #4c7a2f;
-   --badge-ok-fg: #ffffff;
-   --badge-warn-bg: #e0a83d;
-   --badge-warn-fg: #3a2600;
-   --badge-danger-bg: #b4453f;
-   --badge-danger-fg: #ffffff;
+  /* Badges de estatus (contraste >= 4.5:1 en ambos modos, reporte oficial) */
+  --badge-ok-bg: #4c7a2f;
+  --badge-ok-fg: #ffffff;
+  --badge-warn-bg: #e0a83d;
+  --badge-warn-fg: #3a2600;
+  --badge-danger-bg: #b4453f;
+  --badge-danger-fg: #ffffff;
+
+  /* Historial de Movimientos (TAREA 02) */
+  --mov-ingreso: #6fb04a;
+  --mov-egreso: #e0885c;
+  --focus-ring: #e0b48c;
+  --skeleton: rgba(244, 241, 236, 0.13);
+  --skeleton-brillo: rgba(244, 241, 236, 0.30);
+}
+
+/* Modo claro — valores extraídos del diseño de referencia del módulo Pagos. */
+body.light {
+  --bg: #f2ebdf;
+  --surface: #fffdf9;
+  --surface-hover: #f4ede1;
+  --muted: #e6dac6;
+
+  --text: #46392e;
+  --sub: #7a6c5b;
+
+  --shadow: 0 10px 30px rgba(120, 85, 60, 0.14);
+
+  --focus-ring: #8a5a34;
+
+  --mov-ingreso: #3f7d29;
+  --mov-egreso: #b4552f;
+
+  --skeleton: rgba(70, 57, 46, 0.08);
+  --skeleton-brillo: rgba(70, 57, 46, 0.16);
 }

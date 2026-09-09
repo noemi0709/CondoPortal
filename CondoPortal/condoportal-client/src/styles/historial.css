@@ -1,0 +1,524 @@
+/* CondoPortal · Frontend 2 · TAREA 02
+   Vista completa "Historial de Movimientos".
+
+/* Utilidades ---------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Botones (candidatos a promover a un buttons.css global) ------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  min-height: 44px;
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: filter 0.15s ease, background 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--muted);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Isla de la vista --------------------------------------------------- */
+.historial {
+  margin-block: var(--space-6);
+  padding: var(--space-6);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.historial__head {
+  margin-bottom: var(--space-4);
+}
+
+.historial__titulo {
+  margin: 0 0 var(--space-1);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-solid);
+}
+
+.historial__desc {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 0.875rem;
+  color: var(--sub);
+}
+
+.historial__resumen {
+  margin: 0 0 var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--sub);
+}
+
+/* La tabla se presenta como un bloque contenido sobre la isla. */
+.historial .table-container {
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 12px;
+}
+
+/* Filtros ----------------------------------------------------------- */
+.filtros {
+  margin-bottom: var(--space-4);
+}
+
+.filtros__grupo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.filtros__campo label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.filtros__campo input,
+.filtros__campo select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.filtros__campo input::placeholder {
+  color: var(--sub);
+}
+
+.filtros__campo input:focus-visible,
+.filtros__campo select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.filtros__limpiar {
+  justify-self: start;
+}
+
+@media (min-width: 768px) {
+  .filtros__grupo {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: end;
+  }
+
+  .filtros__campo--busqueda {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .filtros__grupo {
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  }
+
+  .filtros__campo--busqueda {
+    grid-column: auto;
+  }
+}
+
+/* Tabla ------------------------------------------------------------- */
+.table--historial {
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.table--historial thead th {
+  padding: 0.75rem 0.875rem;
+  background: var(--th-bg);
+  color: var(--th-fg);
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.table--historial thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.table--historial thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.table--historial tbody td {
+  padding: 0.75rem 0.875rem;
+  border-bottom: 1px solid var(--muted);
+  vertical-align: middle;
+}
+
+.table--historial tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (hover: hover) {
+  .table--historial tbody tr.mov:hover {
+    background: var(--surface-hover);
+  }
+}
+
+.mov__fecha {
+  white-space: nowrap;
+  color: var(--sub);
+}
+
+.mov__concepto-texto {
+  display: block;
+}
+
+.mov__meta {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: var(--sub);
+}
+
+.folio {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  color: var(--sub);
+}
+
+.mov__monto {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mov__saldo {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--sub);
+}
+
+.mov__saldo-na {
+  color: var(--muted);
+}
+
+/* Color del monto según el tipo de movimiento */
+.mov--ingreso .mov__monto {
+  color: var(--mov-ingreso);
+}
+
+.mov--egreso .mov__monto,
+.mov--pago .mov__monto {
+  color: var(--mov-egreso);
+}
+
+.mov--otro .mov__monto {
+  color: var(--sub);
+}
+
+/* Píldora de tipo */
+.tipo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tipo-pill.mov--ingreso {
+  color: var(--mov-ingreso);
+}
+
+.tipo-pill.mov--egreso,
+.tipo-pill.mov--pago {
+  color: var(--mov-egreso);
+}
+
+.tipo-pill.mov--otro {
+  color: var(--sub);
+}
+
+/* Badges de estado ------------------------------------------------- */
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.badge--ok {
+  background: var(--badge-ok-bg);
+  color: var(--badge-ok-fg);
+}
+
+.badge--warning {
+  background: var(--badge-warn-bg);
+  color: var(--badge-warn-fg);
+}
+
+.badge--danger {
+  background: var(--badge-danger-bg);
+  color: var(--badge-danger-fg);
+}
+
+.badge--neutral {
+  background: transparent;
+  color: var(--sub);
+  box-shadow: inset 0 0 0 1px var(--muted);
+}
+
+/* Estados: carga / error / vacío --------------------------------- */
+.hist-estado {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--sub);
+}
+
+.hist-estado svg {
+  color: var(--muted);
+  margin-bottom: var(--space-3);
+}
+
+.hist-estado--error svg {
+  color: var(--badge-danger-bg);
+}
+
+.hist-estado__titulo {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.hist-estado__texto {
+  margin: 0 0 var(--space-4);
+  font-size: 0.875rem;
+}
+
+/* Skeleton de carga */
+.hist-estado>.table--historial {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.skeleton-fila td {
+  padding: 0.9rem 0.875rem;
+  border-bottom: 1px solid var(--muted);
+}
+
+.skeleton-fila td:nth-child(2) {
+  width: 34%;
+}
+
+.skeleton-barra {
+  display: block;
+  width: 100%;
+  height: 0.9rem;
+  border-radius: 6px;
+  background: linear-gradient(90deg,
+      var(--skeleton) 25%,
+      var(--skeleton-brillo) 37%,
+      var(--skeleton) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-barra {
+    animation: none;
+  }
+}
+
+/* Paginación ---------------------------------------------------- */
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.paginacion__estado {
+  font-size: 0.875rem;
+  color: var(--sub);
+}
+
+/* Vista de tarjetas apiladas < 768px -------------------------- */
+@media (max-width: 767px) {
+  .historial {
+    padding: var(--space-4);
+  }
+
+  /* En tarjetas, la tabla no necesita marco propio. */
+  .historial .table-container {
+    background: transparent;
+    border: 0;
+  }
+
+  .table--historial thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .table--historial,
+  .table--historial tbody,
+  .table--historial tr,
+  .table--historial td {
+    display: block;
+    width: 100%;
+  }
+
+  .table--historial tbody tr.mov {
+    margin-bottom: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--muted);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  .table--historial tbody tr.mov:hover {
+    background: var(--surface);
+  }
+
+  .table--historial tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--muted);
+    text-align: right;
+  }
+
+  .table--historial tbody tr td:last-child {
+    border-bottom: 0;
+  }
+
+  .table--historial tbody td::before {
+    content: attr(data-label);
+    flex: none;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--sub);
+  }
+
+  /* El concepto es texto largo: se apila (etiqueta arriba) y se lee a la izquierda */
+  .table--historial tbody td.mov__concepto {
+    display: block;
+    text-align: left;
+  }
+
+  .table--historial tbody td.mov__concepto::before {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .mov__meta {
+    text-align: left;
+  }
+
+  /* Skeleton en móvil: barras simples, sin etiquetas */
+  .skeleton-fila td {
+    display: block;
+    padding: 0.5rem 0;
+    border-bottom: 0;
+  }
+
+  .skeleton-fila td::before {
+    content: none;
+  }
+
+  .paginacion {
+    flex-wrap: wrap;
+  }
+
+  .paginacion .btn {
+    flex: 1 1 auto;
+  }
+
+  .paginacion__estado {
+    order: -1;
+    flex: 1 0 100%;
+    text-align: center;
+  }
+}

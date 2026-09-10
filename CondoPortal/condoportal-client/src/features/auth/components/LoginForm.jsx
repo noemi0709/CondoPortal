@@ -21,7 +21,7 @@ function LoginForm() {
       localStorage.setItem('token', data.token)
       localStorage.setItem('usuario', JSON.stringify(data.usuario))
       navigate('/dashboard')
-    } catch (err) {
+    } catch {
       setError('Credenciales incorrectas. Verifica tu correo y contraseña.')
     } finally {
       setLoading(false)

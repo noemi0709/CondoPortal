@@ -21,6 +21,10 @@ export function obtenerReciboPorId(pagoId) {
   return pagosDemo.find((p) => p.id === Number(pagoId))
 }
 
+export function listarPagos() {
+  return pagosDemo
+}
+
 export function obtenerEstadoCuenta(usuarioId) {
   const pagos = pagosDemo.filter((p) => p.usuarioId === usuarioId)
   const totalPagado = pagos.reduce((sum, p) => sum + p.monto, 0)

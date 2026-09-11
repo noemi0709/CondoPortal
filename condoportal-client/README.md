@@ -21,6 +21,19 @@ npm install
 npm run dev
 ```
 
+Antes de iniciar el cliente, crea `.env.local` a partir de `.env.example` y completa
+la configuración de Firebase. `.env.local` está excluido de Git y no debe subirse
+al repositorio:
+
+```bash
+copy .env.example .env.local
+```
+
+Las variables `VITE_*` de Firebase son configuración pública del cliente web, no
+credenciales administrativas. Protege el proyecto con restricciones de API,
+Firebase Authentication y reglas de Firestore/Storage. Nunca agregues al cliente
+una cuenta de servicio ni una clave privada.
+
 Cada archivo trae un comentario indicando en qué sprint y con qué rol se
 relaciona, según el documento de reparto de actividades. Son placeholders:
 cada desarrollador reemplaza el contenido de su(s) componente(s) asignado(s).

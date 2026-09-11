@@ -1,0 +1,125 @@
+.gastos-page {
+	width: min(1100px, calc(100% - 48px));
+	margin: 0 auto;
+	padding: 46px 0 72px;
+	color: #173b3f;
+}
+
+.gastos-header {
+	margin-bottom: 24px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid #dce6e2;
+}
+
+.gastos-header h1 {
+	margin: 0;
+}
+
+.gastos-header p:last-child,
+.gastos-empty {
+	color: #667a78;
+}
+
+.gastos-feature {
+	display: grid;
+	grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
+	align-items: start;
+	gap: 24px;
+	margin-bottom: 24px;
+	padding: 18px;
+	background: #ffffff;
+	border: 1px solid #dce6e2;
+	border-radius: 8px;
+	box-shadow: 0 12px 30px rgba(23, 59, 63, 0.07);
+}
+
+.gastos-image-frame {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: clamp(220px, 28vw, 330px);
+	padding: 10px;
+	box-sizing: border-box;
+	background: #eef4f1;
+	border: 2px solid #b8cbc4;
+	border-radius: 8px;
+	box-shadow: inset 0 0 0 4px #ffffff;
+}
+
+.gastos-image-frame img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: 4px;
+}
+
+.gastos-feature h2 {
+	margin: 0;
+	color: #173b3f;
+}
+
+.gastos-feature p:last-child {
+	margin-bottom: 0;
+	color: #667a78;
+}
+
+.gastos-eyebrow {
+	margin: 0 0 8px;
+	color: #b07d25;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.gastos-list {
+	display: grid;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.gasto-item,
+.gastos-empty {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	min-height: 64px;
+	padding: 0 20px;
+	background: #ffffff;
+	border: 1px solid #dce6e2;
+	border-radius: 8px;
+}
+
+.gasto-item strong {
+	color: #b07d25;
+}
+
+@media (max-width: 700px) {
+	.gastos-page {
+		width: min(100% - 32px, 560px);
+		padding: 32px 0 52px;
+	}
+
+	.gasto-item {
+		align-items: flex-start;
+		flex-direction: column;
+		justify-content: center;
+		gap: 6px;
+		padding: 12px 16px;
+	}
+
+	.gastos-feature {
+		grid-template-columns: 1fr;
+		gap: 16px;
+		padding: 14px;
+	}
+
+	.gastos-image-frame {
+		height: clamp(220px, 58vw, 320px);
+	}
+}

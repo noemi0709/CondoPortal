@@ -1,0 +1,176 @@
+/* CondoPortal · Frontend 2 · TAREA 03
+   Gráfico de Flujo de Caja (Dashboard) — barras agrupadas con Recharts.
+
+   Reutiliza .hist-estado / .btn / .sr-only / .skeleton-* de historial.css
+   (candidatos a promover a un stylesheet de UI compartido). */
+
+.flujo {
+  margin-block: var(--space-6);
+  padding: var(--space-6);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.flujo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.flujo__titulo {
+  margin: 0 0 var(--space-1);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-solid);
+}
+
+.flujo__desc {
+  margin: 0;
+  max-width: 48ch;
+  font-size: 0.875rem;
+  color: var(--sub);
+}
+
+.flujo__periodo label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.flujo__periodo select {
+  min-height: 44px;
+  padding: 0 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.flujo__periodo select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.flujo__resumen {
+  margin: 0 0 var(--space-4);
+  font-size: 0.875rem;
+  color: var(--sub);
+}
+
+.flujo__monto {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.flujo__monto--ingreso {
+  color: var(--mov-ingreso);
+}
+
+.flujo__monto--egreso {
+  color: var(--mov-egreso);
+}
+
+/* Recharts -------------------------------------------------------- */
+.flujo__grafico {
+  width: 100%;
+}
+
+.flujo__grafico text {
+  font-family: inherit;
+}
+
+.flujo__grafico .recharts-legend-item-text {
+  color: var(--sub) !important;
+  font-size: 0.8125rem;
+}
+
+.flujo__grafico .recharts-default-legend {
+  margin-top: 0.25rem;
+}
+
+/* Tooltip personalizado */
+.flujo-tooltip {
+  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 0.8125rem;
+}
+
+.flujo-tooltip__mes {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+}
+
+.flujo-tooltip__fila {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin: 0.15rem 0;
+}
+
+.flujo-tooltip__punto {
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 3px;
+}
+
+/* Skeleton del gráfico ----------------------------------------- */
+.flujo-skeleton {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3%;
+  height: 260px;
+  padding: 0 var(--space-2);
+}
+
+.flujo-skeleton__barra {
+  flex: 1;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, var(--skeleton-brillo), var(--skeleton));
+  animation: flujo-skeleton-pulso 1.5s ease-in-out infinite;
+}
+
+@keyframes flujo-skeleton-pulso {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flujo-skeleton__barra {
+    animation: none;
+  }
+}
+
+/* Responsive -------------------------------------------------- */
+@media (max-width: 767px) {
+  .flujo {
+    padding: var(--space-4);
+  }
+
+  .flujo__head {
+    flex-direction: column;
+  }
+
+  .flujo__periodo,
+  .flujo__periodo select {
+    width: 100%;
+  }
+}
